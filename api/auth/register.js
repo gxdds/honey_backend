@@ -29,9 +29,9 @@ module.exports = async (req, res) => {
 
       // Inserir o novo usuário no banco de dados
       await sql`
-        INSERT INTO usuario (nome, email, idade, sexo, senha, is_premium)
-        VALUES (${nome}, ${email}, ${idade}, ${sexo}, ${hashedPassword}, false)
-      `;
+  INSERT INTO usuario (nome, email, idade, sexo, senha, is_premium)
+  VALUES (${nome}, ${email}, ${idade}, ${sexo}, ${hashedPassword}, false)
+`;
 
       res.status(201).json({ message: "Usuário cadastrado com sucesso!" });
     } catch (error) {

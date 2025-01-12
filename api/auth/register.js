@@ -4,6 +4,7 @@ const { neon } = require("@neondatabase/serverless");
 
 const sql = neon(process.env.DATABASE_URL);
 
+// Função serverless
 module.exports = async (req, res) => {
   if (req.method === "POST") {
     const { nome, email, senha, idade, sexo } = req.body;

@@ -1,16 +1,15 @@
-const express = require("express");
-const pool = require("../config/db");
+require("dotenv").config();
+const { neon } = require("@neondatabase/serverless");
 
-const router = express.Router();
+const sql = neon(process.env.DATABASE_URL);
 
-router.get("/", async (req, res) => {
+module.exports = async (req, res) => {
   try {
-    const result = await pool.query("SELECT NOW()");
-    res.status(200).json({ message: "Conexão bem-sucedida!", data: result.rows[0] });
+    const result = await sql`SELECT version()`;
+    const { version } = result[0];
+    res.status(200).send(version);
   } catch (error) {
     console.error("Erro ao conectar ao banco:", error);
-    res.status(500).json({ message: "Erro na conexão com o banco." });
+    res.status(500).send("Erro interno do servidor");
   }
-});
-
-module.exports = router;
+};

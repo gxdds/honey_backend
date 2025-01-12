@@ -10,9 +10,17 @@ module.exports = async (req, res) => {
     const { nome, email, senha, idade, sexo } = req.body;
 
     try {
+      // Verificar se a URL do banco de dados está correta
+      console.log("DATABASE_URL:", process.env.DATABASE_URL); // Verifique se a URL do banco está correta
+
       // Verificar se o e-mail já está cadastrado
-      const userExists = await sql`SELECT * FROM usuario WHERE email = ${email}`;
-      if (userExists.rows.length > 0) {
+      const userExists =
+        await sql`SELECT * FROM usuario WHERE email = ${email}`;
+
+      console.log("userExists:", userExists); // Log para inspecionar o retorno da consulta
+
+      // Verificar se o retorno contém a propriedade 'rows' ou se é um array
+      if (userExists && userExists.rows && userExists.rows.length > 0) {
         return res.status(400).json({ message: "Email já cadastrado." });
       }
 

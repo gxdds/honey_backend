@@ -1,5 +1,5 @@
 require("dotenv").config();
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { neon } = require("@neondatabase/serverless");
 
 const sql = neon(process.env.DATABASE_URL);
